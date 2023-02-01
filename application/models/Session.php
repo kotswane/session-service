@@ -12,7 +12,7 @@
 			}
 			$data["username"] = $data['id'];
 			$data["token"] = $data['id']."-".$data['site']."-".uniqid();
-			$data["created"] = date("Y-m-d H:i:s", strtotime("+1 minutes"));
+			$data["created"] = date("Y-m-d H:i:s", strtotime("+25 minutes"));
 			$this->remove($data);
 			$this->db->insert('user_session',$data);
 			return (($this->db->insert_id()>0)?$this->db->insert_id():0); 
