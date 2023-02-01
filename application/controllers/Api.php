@@ -33,7 +33,7 @@ class Api extends CI_Controller {
 		if(!($jsonData->username && $jsonData->site)){
 			print json_encode(array("status"=>"error","message"=>"username and site required"));
 		}else{
-			$postData = array("id"=>$jsonData->username,"site"=>$jsonData->site);
+			$postData = array("username"=>$jsonData->username,"site"=>$jsonData->site);
 			if($this->Session->generate($postData) > 0){
 				print json_encode(array("status"=>"success","message"=>"token generate"));
 			}
@@ -48,7 +48,7 @@ class Api extends CI_Controller {
 		$data=file_get_contents('php://input');
 		$jsonData = json_decode($data);
 		
-		if(!($jsonData->id && $jsonData->site)){
+		if(!($jsonData->username && $jsonData->site)){
 			print json_encode(array("status"=>"error","message"=>"username and site required"));
 		}else{
 			$postData = array("username"=>$jsonData->username,"site"=>$jsonData->site);
