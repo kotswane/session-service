@@ -30,10 +30,10 @@ class Api extends CI_Controller {
 		$data=file_get_contents('php://input');
 		$jsonData = json_decode($data);
 	
-		if(!($jsonData->id && $jsonData->site)){
-			print json_encode(array("status"=>"error","message"=>"id and site required"));
+		if(!($jsonData->username && $jsonData->site)){
+			print json_encode(array("status"=>"error","message"=>"username and site required"));
 		}else{
-			$postData = array("id"=>$jsonData->id,"site"=>$jsonData->site);
+			$postData = array("id"=>$jsonData->username,"site"=>$jsonData->site);
 			if($this->Session->generate($postData) > 0){
 				print json_encode(array("status"=>"success","message"=>"token generate"));
 			}
@@ -49,9 +49,9 @@ class Api extends CI_Controller {
 		$jsonData = json_decode($data);
 		
 		if(!($jsonData->id && $jsonData->site)){
-			print json_encode(array("status"=>"error","message"=>"id and site required"));
+			print json_encode(array("status"=>"error","message"=>"username and site required"));
 		}else{
-			$postData = array("id"=>$jsonData->id,"site"=>$jsonData->site);
+			$postData = array("username"=>$jsonData->username,"site"=>$jsonData->site);
 			$response = $this->Session->request($postData);
 			if($response != "expired"){
 				print json_encode(array("status"=>"success","message"=>$response));
@@ -69,10 +69,10 @@ class Api extends CI_Controller {
 		$data=file_get_contents('php://input');
 		$jsonData = json_decode($data);
 		
-		if(!($jsonData->id && $jsonData->site)){
+		if(!($jsonData->username && $jsonData->site)){
 			print json_encode(array("status"=>"error","message"=>"id and site required"));
 		}else{
-			$postData = array("id"=>$jsonData->id,"site"=>$jsonData->site);
+			$postData = array("username"=>$jsonData->username,"site"=>$jsonData->site);
 			$response = $this->Session->remove($postData);
 			if($response > 0){
 				print json_encode(array("status"=>"success","message"=>"token deleted"));
