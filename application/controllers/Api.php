@@ -31,14 +31,15 @@ class Api extends CI_Controller {
 		$jsonData = json_decode($data);
 	
 		if(!($jsonData->username && $jsonData->site)){
-			print json_encode(array("status"=>"error","message"=>"username and site required"));
+			echo json_encode(array("status"=>"error","message"=>"username and site required"));
 		}else{
 			$postData = array("username"=>$jsonData->username,"site"=>$jsonData->site);
-			if($this->Session->generate($postData) > 0){
-				print json_encode(array("status"=>"success","message"=>"token generate"));
+			
+			if($this->Session->generate($postData) == 1){
+				echo json_encode(array("status"=>"success","message"=>"session generated"));
 			}
 			else{
-				print json_encode(array("status"=>"error","message"=>"token already exists"));
+				echo json_encode(array("status"=>"error","message"=>"session already exists"));
 			}
 		}
 	}
@@ -49,16 +50,16 @@ class Api extends CI_Controller {
 		$jsonData = json_decode($data);
 		
 		if(!($jsonData->username && $jsonData->site)){
-			print json_encode(array("status"=>"error","message"=>"username and site required"));
+			echo json_encode(array("status"=>"error","message"=>"username and site required"));
 		}else{
 			$postData = array("username"=>$jsonData->username,"site"=>$jsonData->site);
 			$response = $this->Session->request($postData);
 			if($response != "expired"){
-				print json_encode(array("status"=>"success","message"=>$response));
+				echo json_encode(array("status"=>"success","message"=>$response));
 			}
 			else{
 				$this->Session->remove($postData);
-				print json_encode(array("status"=>"error","message"=>"token not found"));
+				echo json_encode(array("status"=>"error","message"=>"session not found"));
 			}
 			
 		}
@@ -70,15 +71,15 @@ class Api extends CI_Controller {
 		$jsonData = json_decode($data);
 		
 		if(!($jsonData->username && $jsonData->site)){
-			print json_encode(array("status"=>"error","message"=>"id and site required"));
+			echo json_encode(array("status"=>"error","message"=>"id and site required"));
 		}else{
 			$postData = array("username"=>$jsonData->username,"site"=>$jsonData->site);
 			$response = $this->Session->remove($postData);
 			if($response > 0){
-				print json_encode(array("status"=>"success","message"=>"token deleted"));
+				echo json_encode(array("status"=>"success","message"=>"session deleted"));
 			}
 			else{
-				print json_encode(array("status"=>"error","message"=>"token not found"));
+				echo json_encode(array("status"=>"error","message"=>"session not found"));
 			}			
 		}
 	}

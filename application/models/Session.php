@@ -6,6 +6,7 @@
 	
 			$sql = "SELECT * FROM session_management.user_session where username='".$data['username']."' and site='".$data['site']."' and created >= Now() limit 1;";
             $query=$this->db->query($sql);
+
 			if ($query->num_rows() > 0)
 			{
 				return 0;
@@ -14,7 +15,7 @@
 			$data["created"] = date("Y-m-d H:i:s", strtotime("+25 minutes"));
 			$this->remove($data);
 			$this->db->insert('user_session',$data);
-			return (($this->db->insert_id()>0)?$this->db->insert_id():0); 
+			return 1; 
         }
 		
 		public function request($data){
